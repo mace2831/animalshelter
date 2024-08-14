@@ -1,4 +1,4 @@
-const animalsEndpoint = 'http://localhost:3000/api/animals';
+const animalsEndpoint = 'https://animal-shelter-pfo5.onrender.com/api/animals';
 const options = {
     method: 'GET',
     headers: {
