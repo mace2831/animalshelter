@@ -1,0 +1,25 @@
+
+        <div class="card ml-4" style="width: 18rem;">
+          <div class="card-header">{{ animal.name }}</div>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              Type: {{ animal.animal_type }}
+            </h6>
+            <p class="card-text">
+              <strong>Rec Num:</strong> {{ animal.rec_num }}<br> 
+              <strong>Age:</strong> {{ animal.age_upon_outcome }}<br>
+              <strong>ID:</strong> {{ animal.animal_id }}<br>
+              <strong>Breed:</strong> {{ animal.breed }}<br>
+              <strong>Color:</strong> {{ animal.color }}<br>
+              <strong>Date of Birth:</strong> {{ animal.date_of_birth }}<br>
+              <strong>Sex:</strong> {{ animal.sex_upon_outcome }}<br>
+              <strong>Location:</strong> {{ animal.location_lat }}, {{ animal.location_long }}
+            </p>
+            <div *ngIf="isLoggedIn()">
+              <button (click)="editAnimal(animal)" class="btn btn-dark">Edit Animal</button>
+              <button (click)="deleteAnimal(animal)" class="btn btn-dark">Delete Animal</button>
+            </div>
+          </div>
+        </div>
+        
+    

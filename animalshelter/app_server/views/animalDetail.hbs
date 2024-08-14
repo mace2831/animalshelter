@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+</head>
+<body style="background-color: white">
+    <div>
+        {{>header}}
+    </div>
+    <div class="container mt-5" style="color:black">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Animal Details</h1>
+                <p style="color: black;"><strong>Name:</strong> {{animal.name}}</p>
+                <p><strong>Age Upon Outcome:</strong> {{animal.age_upon_outcome}}</p>
+                <p><strong>Animal ID:</strong> {{animal.animal_id}}</p>
+                <p><strong>Animal Type:</strong> {{animal.animal_type}}</p>
+                <p><strong>Breed:</strong> {{animal.breed}}</p>
+                <p><strong>Color:</strong> {{animal.color}}</p>
+                <p><strong>Date of Birth:</strong> {{animal.date_of_birth}}</p>
+                <p><strong>Sex Upon Outcome:</strong> {{animal.sex_upon_outcome}}</p>
+                <p><strong>Location Latitude:</strong> {{animal.location_lat}}</p>
+                <p><strong>Location Longitude:</strong> {{animal.location_long}}</p>
+            </div>
+            <div class="col-md-6">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        //show the animal location on the map using latitude and longitude
+        document.addEventListener('DOMContentLoaded', function() {
+            var lat = {{animal.location_lat}};
+            var lng = {{animal.location_long}};
+            var name= "{{animal.name}}";
+            var map = L.map('map').setView([lat, lng], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.marker([lat, lng]).addTo(map)
+            //show the animal name above the marker
+                .bindPopup(name)
+                .openPopup();
+        });
+    </script>
+    <div>
+        {{>footer}}
+    </div>
+</body>
+</html>

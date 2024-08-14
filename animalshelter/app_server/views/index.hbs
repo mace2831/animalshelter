@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS-340 Dashboard</title>
+    <style>
+        .flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .flex-item-center {
+            display: flex;
+            align-items: center;
+        }
+        .row {
+            display: flex;
+        }
+        .col {
+            flex: 1;
+        }
+    </style>
+</head>
+<body style="background-color: white">
+    <div id="header">
+        {{>header}}
+    </div>
+    <div class="flex-container">
+        <div class="flex-item-center">
+            <b><h1>Welcome to the Animal Shelter!</h1></b>
+        </div>
+    </div>    
+    <p></p>
+    <div class="container">
+        <center><p class="flex-item-center body-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dignissim in felis nec porttitor.
+             Cras venenatis congue mi, a mattis massa porttitor feugiat. Pellentesque tincidunt dapibus orci. Vestibulum 
+             ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque consequat dictum metus, 
+             at tempor turpis lacinia non. Donec neque dui, tristique vel orci at, vehicula vulputate orci. Ut iaculis 
+             mattis nisi, tincidunt porta ligula feugiat ut. Mauris quis quam mauris. Cras vulputate tellus facilisis, 
+             ullamcorper nunc vitae, consequat augue. Phasellus eget sapien mattis, venenatis felis vitae, pulvinar dui. 
+             Duis molestie sapien augue, ut ultricies nisl aliquet eu. Donec sodales ex eu mi iaculis vestibulum. Nam 
+             luctus velit id arcu ultrices fringilla.</p>
+
+            <p class="flex-item-center body-paragraph" style="color:black">Maecenas nec sodales mauris, at euismod tortor. Nullam a ante justo. Maecenas vel diam sed libero luctus volutpat. 
+            Quisque dolor augue, interdum eu arcu vel, rutrum facilisis lorem. Suspendisse nec sem id eros pellentesque tincidunt. 
+            Sed nec enim eget eros efficitur vulputate. Suspendisse mi augue, ornare id consectetur ac, posuere non dui. Vestibulum 
+            ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus id justo nibh. Nam eget condimentum 
+            nibh. Fusce suscipit eget magna id faucibus. Mauris semper dignissim tristique.</p>
+
+            <p class="flex-item-center body-paragraph" style="color:black">Donec fermentum tortor nibh, id lacinia massa sodales lacinia. Integer ex turpis, viverra et ornare eget, eleifend et enim. 
+            Mauris auctor, nibh id tincidunt dignissim, justo elit condimentum libero, vel consequat metus nunc quis mauris. Maecenas 
+            pretium leo lacus, vestibulum tincidunt sapien eleifend sed. Nunc id suscipit ligula. Sed ultrices vitae sapien vel convallis. 
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi quis nulla accumsan, suscipit 
+            urna et, lacinia ligula. Nunc nec congue eros, in lobortis tellus. Nulla nisi tellus, dictum vel ornare sed, posuere tincidunt 
+            urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae venenatis purus. Pellentesque convallis commodo velit, 
+            non accumsan ipsum auctor quis.</p></center>
+    </div>
+    <div>
+        {{>footer}}
+    </div>
+</body>
+</html>

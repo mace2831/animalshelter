@@ -1,0 +1,62 @@
+body{
+  background-color: #D8E6EC;
+  color: white;
+  }
+
+hr{
+  border-style: none;
+  border-top-style: dotted;
+  border-color: #004262; 
+  border-width: 5px;
+  width: 5%; 
+}
+h1, h2, h3{
+  color: #478CCF;
+}
+
+
+a:link {
+  color: #007AB5;
+}
+
+
+a:visited {
+  color: #004262;
+}
+
+
+a:hover {
+  color: #004262;
+}
+
+
+a:active {
+  color: #004262;
+}
+
+.logo_image{
+  padding-right: 20px;
+  z-index: 1000; 
+}
+
+.body-paragraph{
+  color: black;
+  text-align: left;
+}
+
+.graphflex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.graphflex-item-center {
+  display: flex;
+  align-items: center;
+}
+.graphrow {
+  display: flex;
+}
+.graphcol {
+  flex: 1;
+}

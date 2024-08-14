@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Animals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #searchbar {
+            position: relative;
+            width: 300px;
+        }
+        #suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            list-style: none;
+            padding-left: 0;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        #suggestions li {
+            padding: 8px;
+            cursor: pointer;
+            color: black;
+        }
+        #suggestions li:hover {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body style="background-color: white">
+    <div id="navbar">
+        {{>header}}
+    </div>
+    <div class="container">
+        <div id="searchbar" class="d-flex justify-content-center mb-3 position-relative">
+            <form id="search-form" class="form-inline">
+                <input type="text" id="search" placeholder="Search by Name" class="form-control">
+                <ul id="suggestions"></ul>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-center mb-3">
+            <table id="datatable-id" class="table table-striped table-bordered" style="width: 70%">
+                <thead>
+                    <tr>
+                        <th>Rec Num</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Animal ID</th>
+                        <th>Animal Type</th>
+                        <th>Breed</th>
+                        <th>Color</th>
+                        <th>Birthday</th>
+                        <th>Sex</th>
+                        <th>Location Lat</th>
+                        <th>Location Long</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/api/animals')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#datatable-id tbody');
+                    tableBody.innerHTML = '';
+                    //loops through every animal to populate the table
+                    data.forEach(animal => {
+                        const row = document.createElement('tr');
+                        //make the row clickable to navigate to the selected animal's page
+                        row.classList.add('clickable-row');
+                        //use rec_num as the data attribute for navigating to selected animal
+                        row.dataset.recNum = animal.rec_num; 
+                        row.innerHTML = `
+                            <td>${animal.rec_num}</td>
+                            <td>${animal.name}</td>
+                            <td>${animal.age_upon_outcome}</td>
+                            <td>${animal.animal_id}</td>
+                            <td>${animal.animal_type}</td>
+                            <td>${animal.breed}</td>
+                            <td>${animal.color}</td>
+                            <td>${animal.date_of_birth}</td>
+                            <td>${animal.sex_upon_outcome}</td>
+                            <td>${animal.location_lat}</td>
+                            <td>${animal.location_long}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+
+                    //add click event listener to each row
+                    document.querySelectorAll('.clickable-row').forEach(row => {
+                        row.addEventListener('click', function() {
+                            //get rec_num from clicked row
+                            const recNum = this.dataset.recNum;
+                            //navigate to the page using rec_num
+                            window.location.href = `/animals/${recNum}`;
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+            // Handle search input
+            $('#search').on('input', function() {
+                //save input value as the query
+                const query = $(this).val();
+                if (query.length > 0) {
+                    $.ajax({
+                        //set the url to the autocomplete endpoint
+                        url: '/autocomplete',
+                        //set the input value as the query
+                        data: { query: query },
+                        success: function(data) {
+                            //Clear suggestions
+                            $('#suggestions').empty();
+                            if (data.length === 0) {
+                                $('#suggestions').append('<li>No suggestions found</li>');
+                            } else {
+                                data.forEach(function(suggestion) {
+                                    //add the suggested name and rec_num to the suggestion dropdown box of the search box
+                                    $('#suggestions').append('<li data-rec-num="' + suggestion.rec_num + '">' + suggestion.name + '</li>');
+                                });
+
+                                // Add click event listener to each suggestion
+                                $('#suggestions li').on('click', function() {
+                                    //get the user selected suggestion
+                                    const selectedSuggestion = $(this).text();
+                                    //save the rec_num from the suggestion
+                                    const recNum = $(this).data('rec-num');
+                                    //set input value as the selected suggestion
+                                    $('#search').val(selectedSuggestion);
+                                    //clear suggestions
+                                    $('#suggestions').empty();
+
+                                    //send the user to the selected animals page
+                                    window.location.href = `/animals/${recNum}`;
+                                });
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                } else {
+                    //clear suggestions if the search bar is empty
+                    $('#suggestions').empty();
+                }
+            });
+
+            // Handle form submission
+            $('#search-form').on('submit', function(event) {
+                event.preventDefault();
+                //get input value
+                const query = $('#search').val();
+                if (query.length > 0) {
+                    $.ajax({
+                        //set the endpoint url for retrieving animals
+                        url: '/api/animals',
+                        //send the input query
+                        data: { query: query },
+                        success: function(data) {
+                            //send the user to the selected animal details page
+                            if (data.length > 0) {
+                                window.location.href = `/animals/${data[0].rec_num}`;
+                            } else {
+                                alert('No animal found with that name.');
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <div>
+        {{>footer}}
+    </div>
+</body>
+</html>

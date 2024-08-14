@@ -1,0 +1,13 @@
+<br>
+<div class="container">
+  <div *ngIf="isLoggedIn()">
+    <button (click)="addAnimal()" class="btn btn-dark">Add Animal</button>
+    
+  </div>
+  <br>
+    <div class="row">
+      <div *ngFor="let animal of animals" class="col-md-4">
+        <app-animal-card [animal]="animal" class="card-deck mt-2"></app-animal-card>
+    </div>
+</div>
+</div>
