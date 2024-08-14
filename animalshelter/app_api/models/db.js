@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 //const host = process.env.DB_HOST || 'localhost:27017';
 //const dbURI = `mongodb://${host}/animals`;
-const dbURI = process.env.MONGODB_URI || 'mongodb+srv://mace2831:traumaking@animalshelter.sjycg.mongodb.net/AnimalShelter?retryWrites=true&w=majority&appName=AnimalShelter';
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://mace2831:@animalshelter.sjycg.mongodb.net/AnimalShelter?retryWrites=true&w=majority&appName=AnimalShelter';
 const readLine = require('readline');
 
 const connect = () =>{
