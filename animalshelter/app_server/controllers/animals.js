@@ -1,4 +1,4 @@
-const animalsEndpoint = 'https://animal-shelter-pfo5.onrender.com/api/animals';
+const animalsEndpoint = 'http://localhost:3000/api/animals';
 const options = {
     method: 'GET',
     headers: {
@@ -22,7 +22,7 @@ const animals = async function(req,res,next){
         }
         res.render('animals', {title: 'Animal Shelter', animals: json});
     })
-    .catch(err=> res.status(500).send(err.message));
+    .catch(err=> res.status(500).send(e.message));
 }
 
 module.exports ={
